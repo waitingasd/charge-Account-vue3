@@ -1,8 +1,17 @@
 <template>
   <view class="content">
-    <view class="text-area">
-      <view></view>
-      <!-- <text class="title">{{ title }}</text> -->
+    <view class="final-detail">
+      <view class="balance">
+        <p>3月结余</p>
+        <p>{{ 0 }}</p>
+      </view>
+      <view class="details">
+        <view class="income">收入</view> 
+        <view>0</view> 
+        <view>|</view>
+        <view class="income spend">支出</view> 
+        <view>0</view> 
+      </view>
     </view>
   </view>
 </template>
@@ -19,30 +28,47 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
 .content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-.logo {
-  height: 200rpx;
-  width: 200rpx;
-  margin-top: 200rpx;
-  margin-left: auto;
-  margin-right: auto;
-  margin-bottom: 50rpx;
-}
-
-.text-area {
-  display: flex;
-  justify-content: center;
-}
-
-.title {
-  font-size: 36rpx;
-  color: #8f8f94;
+  .final-detail {
+    width: 90%;
+    background-color: #ffffff;
+    margin: 0 auto;
+    border-radius: 16rpx;
+    .balance {
+      p:first-child {
+        font-size: 15px;
+        padding-top: 50rpx;
+        padding-left: 30rpx;
+      }
+      p:last-child {
+        font-size: 17px;
+        padding-left: 30rpx;
+        padding-top: 10rpx;
+        font-weight: 700;
+      }
+    }
+    .details {
+      display: flex;
+      padding-left: 30rpx;
+      padding-top: 30rpx;
+      padding-bottom: 30rpx;
+      uni-view {
+        margin-right: 20rpx;
+      }
+      .income {
+        border-radius: 16rpx;
+        background-color: rgb(127, 196, 127);
+        color: white;
+        width: 15%;
+        font-size: 15px;
+        line-height: 32rpx;
+        text-align: center;
+        &.spend {
+          background-color: pink;
+        }
+      }
+    }
+  }
 }
 </style>

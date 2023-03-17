@@ -14,4 +14,7 @@ export default {
 
 <style>
 /*每个页面公共css */
+uni-page-head[uni-page-head-type='default'] ~ uni-page-wrapper {
+	background-color: #f6f6f6;
+}
 </style>

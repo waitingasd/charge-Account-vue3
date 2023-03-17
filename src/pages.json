@@ -10,7 +10,31 @@
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "uni-app",
-		"navigationBarBackgroundColor": "#F8F8F8",
-		"backgroundColor": "#F8F8F8"
+		"navigationBarBackgroundColor": "#F8F8F8"
+	},
+	"tabBar": {
+		"color": "#FFF",
+		"selectedColor": "#FFF",
+		"backgroundColor": "#2B52B0",
+		"list": [{
+				"pagePath": "pages/index/index",
+				"iconPath": "static/home/tabBow/home.png",
+				"selectedIconPath": "./static/home/tabBow/home-select.png",
+				"text": "首页"
+			},
+			{
+				"pagePath": "",
+				"iconPath": "",
+				"selectedIconPath": "",
+				"text": "统计"
+			},
+			{
+				"pagePath": "",
+				"iconPath": "",
+				"selectedIconPath": "",
+				"text": "我的"
+			}
+		]
+
 	}
 }
