@@ -17,4 +17,7 @@ export default {
 uni-page-head[uni-page-head-type='default'] ~ uni-page-wrapper {
 	background-color: #f6f6f6;
 }
+.uni-tabbar__icon.uni-tabbar__icon__diff {
+	margin-top: 28px;
+}
 </style>
