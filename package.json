@@ -48,6 +48,7 @@
     "@dcloudio/uni-mp-toutiao": "3.0.0-3070320230222002",
     "@dcloudio/uni-mp-weixin": "3.0.0-3070320230222002",
     "@dcloudio/uni-quickapp-webview": "3.0.0-3070320230222002",
+    "axios": "^1.3.5",
     "sass": "^1.59.3",
     "scss-loader": "0.0.1",
     "vue": "^3.2.45",
