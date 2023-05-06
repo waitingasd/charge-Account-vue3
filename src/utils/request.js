@@ -20,7 +20,7 @@ export const myRequest = (options) => { //传入的options是一个json对象
 		// if(options.url==='/f/epro/common/verify/get/picture') {
 		// 	header.Cookie = 'JSESSIONID=' + phoneInfo.deviceId
 		// }
-		header.Authorization = uni.getStorageSync('charge_token') || ''
+		header.Authorization = 'Bearer'+ ' ' + uni.getStorageSync('charge_token') || ''
 		// console.log(token)
 		uni.request({
 			url: BASE_URL + options.url,
