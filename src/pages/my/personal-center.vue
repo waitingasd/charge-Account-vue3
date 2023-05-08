@@ -20,18 +20,29 @@
       <view class="right-text">修改密码</view>
       <img class="icon" src="../../static/mine/xiayiye.png" alt="" />
     </view>
-    <view class="operate-btn">注销账号</view>
-    <view class="operate-btn">退出登录</view>
+    <view class="operate-btn" @click="delAcount">注销账号</view>
+    <view class="operate-btn" @click="logout">退出登录</view>
   </view>
 </template>
 
 <script>
-import { getUserInfo } from '../../api/index.js'
+import { getUserInfo, deleteAccount } from '../../api/index.js'
+import { useStore } from 'vuex';
 export default {
   props: ['userInfo'],
-  setup(props) {
+  setup(props, ctx) {
     const userInfo = props.userInfo
-    return { userInfo }
+    const store = useStore()
+    const isShowForm = ref(true)
+    // const emit = defineEmits(['showForm'])
+    const delAcount = async() => {
+      const { data: res } = await deleteAccount()
+      if (res?.code === 0) {
+        // store.commit('REMOVE_TOKEN')
+        // emit('showForm', isShowForm)
+      }
+    }
+    return { userInfo, delAcount }
   }
 }
 </script>
@@ -47,8 +58,8 @@ export default {
       background-color: #969494;
       cursor: pointer;
       img {
-        width: 180rpx;
-        height: 180rpx;
+        width: 150rpx;
+        height: 150rpx;
         padding: 10rpx 30rpx;
       }
       .icon {

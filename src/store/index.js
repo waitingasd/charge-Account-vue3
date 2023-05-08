@@ -11,6 +11,12 @@ export default createStore({
 				key: 'charge_token',
 				data: payload
 			})
+		},
+		REMOVE_TOKEN(state) {
+			state.charge_token = ''
+			uni.removeStorage({
+				key: 'charge_token'
+			})
 		}
   },
   actions: {

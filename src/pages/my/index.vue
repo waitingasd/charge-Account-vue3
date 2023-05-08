@@ -41,17 +41,17 @@ export default {
       res: {}
     })
     const isShowUserInfo = ref(false)
-    getUserInfo().then(res => {
-      swe.res =computed(()=>{
-        return res?.data?.data
-      })
-      if (swe.res) {
-        if (store.getters.charge_token !== '') {
-          isShowUserInfo.value = true
-          swe.userInfo = swe.res
-        }
-      }
-    })
+    // getUserInfo().then(res => {
+    //   swe.res =computed(()=>{
+    //     return res?.data?.data
+    //   })
+    //   if (swe.res) {
+    //     if (store.getters.charge_token !== '') {
+    //       isShowUserInfo.value = true
+    //       swe.userInfo = swe.res
+    //     }
+    //   }
+    // })
     const formData = ref({
       name: '',
       password: ''
@@ -77,11 +77,14 @@ export default {
     const login =  async() => {
       const { data:res } = await userLogin(formData._value)
       store.commit('SET_TOKEN', res?.token)
-      isShowUserInfo.value = true
       getUserInfo().then(res => {
+      isShowUserInfo.value = true
         swe.userInfo = res?.data?.data
       })
     }
+    // const showForm = (e) => {
+    //   isShowUserInfo = e
+    // }
     return { store, isShowUserInfo, formData, rules, login, ...toRefs(swe) }
   }
 }

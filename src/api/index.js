@@ -18,3 +18,12 @@ export function getUserInfo() {
 		method: 'get'
 	})
 }
+
+// 注销账号
+export function deleteAccount(params) {
+  return myRequest({
+		url: '/deleteAccount',
+		method: 'get',
+		params
+	})
+}
