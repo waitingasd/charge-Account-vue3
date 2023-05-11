@@ -28,18 +28,18 @@
 <script>
 import { getUserInfo, deleteAccount } from '../../api/index.js'
 import { useStore } from 'vuex';
+import { ref, defineEmits } from 'vue' 
 export default {
   props: ['userInfo'],
-  setup(props, ctx) {
+  setup(props) {
     const userInfo = props.userInfo
     const store = useStore()
-    const isShowForm = ref(true)
-    // const emit = defineEmits(['showForm'])
+    const emit = defineEmits(['showForm'])
     const delAcount = async() => {
       const { data: res } = await deleteAccount()
       if (res?.code === 0) {
-        // store.commit('REMOVE_TOKEN')
-        // emit('showForm', isShowForm)
+        store.commit('REMOVE_TOKEN')
+        emit('showForm', false)
       }
     }
     return { userInfo, delAcount }

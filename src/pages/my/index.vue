@@ -21,7 +21,7 @@
       <button class="btn" @tap="login">登录</button>
     </view>
     <view v-else class="my-info">
-      <personal-center :userInfo="userInfo" />
+      <personal-center :userInfo="userInfo" @showForm="showForm"/>
     </view>
   </view>
 </template>
@@ -41,17 +41,19 @@ export default {
       res: {}
     })
     const isShowUserInfo = ref(false)
-    // getUserInfo().then(res => {
-    //   swe.res =computed(()=>{
-    //     return res?.data?.data
-    //   })
-    //   if (swe.res) {
-    //     if (store.getters.charge_token !== '') {
-    //       isShowUserInfo.value = true
-    //       swe.userInfo = swe.res
-    //     }
-    //   }
-    // })
+    if (!isShowUserInfo) {
+      getUserInfo().then(res => {
+        swe.res =computed(()=>{
+          return res?.data?.data
+        })
+        if (swe.res) {
+          if (store.getters.charge_token !== '') {
+            isShowUserInfo.value = true
+            swe.userInfo = swe.res
+          }
+        }
+      })
+    }
     const formData = ref({
       name: '',
       password: ''
@@ -82,10 +84,12 @@ export default {
         swe.userInfo = res?.data?.data
       })
     }
-    // const showForm = (e) => {
-    //   isShowUserInfo = e
-    // }
-    return { store, isShowUserInfo, formData, rules, login, ...toRefs(swe) }
+    const showForm = (val) => {
+      console.log(val, 'val====')
+      isShowUserInfo.value = val
+    }
+    console.log(isShowUserInfo, 'isShowUserInfo=====')
+    return { store, isShowUserInfo, formData, rules, login, ...toRefs(swe), showForm }
   }
 }
 </script>
