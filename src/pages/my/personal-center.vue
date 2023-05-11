@@ -25,13 +25,14 @@
   </view>
 </template>
 
-<script>
+<script setup>
 import { getUserInfo, deleteAccount } from '../../api/index.js'
 import { useStore } from 'vuex';
-import { ref, defineEmits } from 'vue' 
-export default {
-  props: ['userInfo'],
-  setup(props) {
+// import { ref, defineEmits } from 'vue' 
+// export default {
+  // props: ['userInfo'],
+  // setup(props) {
+    const props = defineProps(['userInfo'])
     const userInfo = props.userInfo
     const store = useStore()
     const emit = defineEmits(['showForm'])
@@ -42,9 +43,13 @@ export default {
         emit('showForm', false)
       }
     }
-    return { userInfo, delAcount }
-  }
-}
+    const logout = () => {
+      store.commit('REMOVE_TOKEN')
+      emit('showForm', false)
+    }
+    // return { userInfo, delAcount }
+//   }
+// }
 </script>
 
 <style lang="scss">

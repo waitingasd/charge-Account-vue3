@@ -41,7 +41,7 @@ export default {
       res: {}
     })
     const isShowUserInfo = ref(false)
-    if (!isShowUserInfo) {
+    // if (!isShowUserInfo) {
       getUserInfo().then(res => {
         swe.res =computed(()=>{
           return res?.data?.data
@@ -53,7 +53,7 @@ export default {
           }
         }
       })
-    }
+    // }
     const formData = ref({
       name: '',
       password: ''
