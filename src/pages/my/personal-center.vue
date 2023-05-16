@@ -6,7 +6,7 @@
     </view>
     <view class="info-row">
       <view class="right-text">昵称</view>
-      <view class="right-text">{{ userInfo.username }}</view>
+      <view class="right-text">{{ userInfo.username ? userInfo.username : `用户${ userInfo.phone }`}}</view>
     </view>
     <view class="info-row">
       <view class="right-text">手机</view>

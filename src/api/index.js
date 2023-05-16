@@ -27,3 +27,12 @@ export function deleteAccount(params) {
 		params
 	})
 }
+
+// 注册账号
+export function registUser(data) {
+  return myRequest({
+		url: '/registUser',
+		method: 'post',
+		data
+	})
+}

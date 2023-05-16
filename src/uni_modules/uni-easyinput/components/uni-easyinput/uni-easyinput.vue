@@ -300,7 +300,6 @@ export default {
 			const borderColor = this.inputBorder && this.msg ? '#dd524d' : focusColor;
 			return obj2strStyle({
 				'border-color': borderColor || '#e5e5e5',
-				'background-color': this.disabled ? this.styles.disableColor : this.styles.backgroundColor
 			});
 		},
 		// input右侧样式
@@ -525,7 +524,7 @@ $uni-border-1: #dcdfe6 !default;
 	flex-direction: row;
 	align-items: center;
 	// 处理border动画刚开始显示黑色的问题
-	border-color: #fff;
+	// border-color: #fff;
 	transition-property: border-color;
 	transition-duration: 0.3s;
 }
@@ -539,7 +538,7 @@ $uni-border-1: #dcdfe6 !default;
 	flex: 1;
 	line-height: 1;
 	font-size: 14px;
-	height: 35px;
+	height: 45px;
 	// min-height: 36px;
 }
 

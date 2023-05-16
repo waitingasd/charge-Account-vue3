@@ -15,7 +15,7 @@
 		{
 			"path": "pages/my/index",
 			"style": {
-				"navigationBarTitleText": "我的"
+				"navigationBarTitleText": "我的",
 			}
 		}
 	],
@@ -23,7 +23,10 @@
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "uni-app",
 		"navigationBarBack": "#F8F8F8",
-		"groundColor": "#F8F8F8"
+		"groundColor": "#F8F8F8",
+		"usingComponents": {
+			"van-field": "wxcomponents/dist/field/index"
+			}
 	},
 	"tabBar": {
 		"color": "#FFF",
