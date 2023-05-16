@@ -593,7 +593,7 @@ $uni-border-1: #dcdfe6 !default;
 	/* #endif */
 	flex-direction: row;
 	align-items: center;
-	border: 1px solid $uni-border-1;
+	// border: 1px solid $uni-border-1;
 	border-radius: 4px;
 	/* #ifdef MP-ALIPAY */
 	overflow: hidden;

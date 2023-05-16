@@ -1,6 +1,6 @@
 <template>
   <view class="mine-userInfo">
-    <view class="info-row">
+    <view class="info-row" style="padding-top: 10px">
       <img src="../../static/mine/no-head.png" alt="" />
       <view class="right-text">更换头像</view>
     </view>
@@ -60,7 +60,7 @@ import { useStore } from 'vuex';
       align-items: center;
       margin: 20rpx 20rpx;
       border-radius: 16rpx;
-      background-color: #969494;
+      background-color: rgba(232, 219, 226);
       cursor: pointer;
       img {
         width: 150rpx;
@@ -82,7 +82,7 @@ import { useStore } from 'vuex';
       align-items: center;
       margin: 20rpx 20rpx;
       border-radius: 16rpx;
-      background-color: #969494;
+      background-color: rgba(232, 219, 226, 0.6);
       text-align: center;
       padding: 35rpx 30rpx;
     }
