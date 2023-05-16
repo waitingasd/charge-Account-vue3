@@ -82,7 +82,7 @@ app.post('/login', function (req, res, next) {
     jzxToken: username
   };
   const token = jwt.sign(userToken, 'token', { expiresIn: "24h" }); // 过期时间为24h
-  const sql = 'select * from users where username = ?'
+  const sql = 'select * from users where phone = ?'
   conn.query(sql, username, (err, result) => {
     if (err) {
       res.send({
@@ -160,7 +160,7 @@ app.get('/getUserInfo', function(req, res, next) {
         userData = data
       }
     })
-    const sql = 'select * from users where username = ?'
+    const sql = 'select * from users where phone = ?'
     conn.query(sql, userData.jzxToken, (err, data) => {
       if (err) {
         res.send({
@@ -234,6 +234,62 @@ app.get('/deleteAccount', function(req, res, next) {
   } catch(e) {
     next(e)
   }
+})
+
+// 注册账号
+app.post('/registUser', function (req, res, next) {
+  // 通过req.body可以获取前端post请求传给服务器的参数
+  phoneNumber = req.body.phoneNumber
+  password = req.body.password
+  againPassword = req.body.againPassword
+  const querySql = 'select * from users where phone = ?' 
+  const sql = 'insert into users(phone, password) values (?, ?)'
+  conn.query(querySql, phoneNumber, (err, result) => {
+    console.log(err, result, 'err, result')
+    if (err) {
+      res.send({
+        code: 20000,
+        msg: '网络异常~',
+        status: 0
+      })
+      return
+    }
+    if (result.length !== 0) {
+      res.send({
+        code: 20000,
+        msg: '该手机号已被注册过，请更换手机号~',
+        status: 0
+      })
+    } else {
+      if (password !== againPassword) {
+        res.send({
+          code: 20000,
+          msg: '两次密码不一致，请重新输入！',
+          status: 0
+        })
+        return
+      } else {
+        conn.query(sql, [phoneNumber, password], (err, result) => {
+          if (err) {
+            res.send({
+              code: 20000,
+              msg: '注册失败！请重新注册~',
+              status: 0
+            })
+            return
+          }
+          if (result) {
+            res.send({
+              code: 0,
+              msg: '注册成功！请重新登陆！',
+              status: 0
+            })
+            return
+          }
+        })
+      }
+    }
+  })
 })
 app.listen(8888, function () {
   console.log('app is listening at http://127.0.0.1:8888/ \n 请手动打开网址')
