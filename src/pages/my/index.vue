@@ -1,6 +1,6 @@
 <template>
 <view class="page-mine">
-  <view v-show="!isShowUserInfo" class="mine-login">
+  <view v-if="!isShowUserInfo" class="mine-login">
     <view v-if="!isShowUserInfo" class="mine-top"></view>
     <view v-if="!isShowUserInfo" class="my-login">
       <uni-forms
@@ -76,7 +76,7 @@
       >
     </view>
   </view>
-  <view v-show="isShowUserInfo" class="my-info">
+  <view v-if="isShowUserInfo" class="my-info">
     <personal-center :userInfo="userInfo" @showForm="showForm" />
   </view>
 </view>
@@ -98,19 +98,19 @@ export default {
     });
     const isShowUserInfo = ref(false);
     const noRegist = ref(false); // 是否没注册
-    if (store.getters.charge_token !== "") {
+    // if (store.getters.charge_token !== "") {
       getUserInfo().then((res) => {
         swe.res = computed(() => {
           return res?.data?.data;
         });
         if (swe.res) {
-          // if (store.getters.charge_token !== '') {
+          if (store.getters.charge_token !== '') {
           isShowUserInfo.value = true;
           swe.userInfo = swe.res;
-          // }
+          }
         }
       });
-    }
+    // }
     const formData = ref({
       name: "",
       password: "",
@@ -240,6 +240,9 @@ page {
       width: 90%;
       margin: 0 auto;
       border-radius: 16rpx !important;
+      ::v-deep .uni-easyinput__content-input {
+        height: 90rpx;
+      }
     }
     .btn {
       width: 90%;
@@ -255,5 +258,8 @@ page {
 .my-info {
   height: 100%;
 }
+    
 }
+       
+
 </style>

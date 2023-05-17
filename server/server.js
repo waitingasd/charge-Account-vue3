@@ -291,6 +291,107 @@ app.post('/registUser', function (req, res, next) {
     }
   })
 })
+
+// 修改个人信息
+app.post('/updateUserInfo', function (req, res, next) {
+  let parts = req.headers.authorization.split(' ');
+  username = req.body.username
+  phone = req.body.phone
+  email = req.body.email
+  type = req.body.type
+  let token = ''
+  let userData = ''
+  try {
+    if (parts.length == 2) {
+      let scheme = parts[0]
+      let unique = parts[1]
+      if (/^Bearer$/i.test(scheme)) {
+        token = unique // 获取前端传过来的token
+      }
+    }
+    jwt.verify(token, 'token', (err, data) => {
+      if (err) {
+        res.send({
+          code: 20000,
+          msg: '登录信息已过期，请重新登录',
+          status: -1
+        })
+        return
+      }
+      if (data) {
+        userData = data
+      }
+    })
+    if (type === 'name') {
+      const sql = 'update users set username = ? where phone = ?'
+      conn.query(sql, [username, userData.jzxToken], (err, result) => {
+        if (err) {
+          console.log(err, 'err====')
+          res.send({
+            code: 20000,
+            msg: '修改失败~',
+            status: 0
+          })
+          return
+        }
+        if (result) {
+          res.send({
+            code: 0,
+            msg: '修改成功！',
+            status: 0
+          })
+          return
+        }
+      })
+    }
+    if (type === 'phone') {
+      const sql = 'update users set phone = ? where phone = ?'
+      conn.query(sql, [phone, userData.jzxToken], (err, result) => {
+        if (err) {
+          console.log(err, 'err====')
+          res.send({
+            code: 20000,
+            msg: '修改失败~',
+            status: 0
+          })
+          return
+        }
+        if (result) {
+          res.send({
+            code: 0,
+            msg: '修改成功！',
+            status: 0
+          })
+          return
+        }
+      })
+    }
+    if (type === 'email') {
+      const sql = 'update users set email = ? where phone = ?'
+      conn.query(sql, [email, userData.jzxToken], (err, result) => {
+        if (err) {
+          console.log(err, 'err====')
+          res.send({
+            code: 20000,
+            msg: '修改失败~',
+            status: 0
+          })
+          return
+        }
+        if (result) {
+          res.send({
+            code: 0,
+            msg: '修改成功！',
+            status: 0
+          })
+          return
+        }
+      })
+    }
+  } catch(e) {
+    next(e)
+  }
+})
 app.listen(8888, function () {
   console.log('app is listening at http://127.0.0.1:8888/ \n 请手动打开网址')
 })

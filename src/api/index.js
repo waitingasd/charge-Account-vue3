@@ -36,3 +36,12 @@ export function registUser(data) {
 		data
 	})
 }
+
+// 修改个人信息
+export function updateUserInfo(data) {
+  return myRequest({
+		url: '/updateUserInfo',
+		method: 'post',
+		data
+	})
+}

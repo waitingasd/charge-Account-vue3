@@ -538,7 +538,7 @@ $uni-border-1: #dcdfe6 !default;
 	flex: 1;
 	line-height: 1;
 	font-size: 14px;
-	height: 45px;
+	// height: 45px;
 	// min-height: 36px;
 }
 
