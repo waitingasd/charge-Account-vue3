@@ -23,6 +23,13 @@
 			"style": {
 				"navigationBarTitleText": "修改密码"
 			}
+		},
+		{
+			"path": "pages/record/index",
+			"style": {
+				"navigationStyle": "custom",//设置不显示原生导航
+				// "navigationBarTitleText": "记账"
+			}
 		}
 	],
 	"globalStyle": {
@@ -34,6 +41,11 @@
 			"van-field": "wxcomponents/dist/field/index"
 			}
 	},
+	
+"window": {
+	// 全局导航栏设置,"default"默认显示 "custom"关闭状态
+	"navigationStyle": "default",//默认显示原生导航栏
+},
 	"tabBar": {
 		"color": "#FFF",
 		"selectedColor": "#FFF",

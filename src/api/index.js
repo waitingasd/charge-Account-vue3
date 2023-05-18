@@ -45,3 +45,12 @@ export function updateUserInfo(data) {
 		data
 	})
 }
+
+// 修改密码
+export function updatePassword(data) {
+  return myRequest({
+		url: '/updatePassword',
+		method: 'get',
+		data
+	})
+}

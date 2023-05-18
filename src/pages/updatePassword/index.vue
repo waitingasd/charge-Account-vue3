@@ -1,40 +1,69 @@
 <template>
   <view class="change-password">
     <uni-forms
-      ref="form"
-      :modelValue="formData"
-      :rules="rules"
+      ref="psdForm"
+      :modelValue="changePsdFormData"
     >
-      <uni-forms-item name="name">
+      <uni-forms-item name="account">
         <uni-easyinput
-          class="input-form"
           type="text"
-          v-model="formData.name"
+          v-model="changePsdFormData.account"
           maxlength="11"
           placeholder="请输入手机号"
-          style="margin-top: 50rpx"
-          :style="styles"
         />
       </uni-forms-item>
-      <uni-forms-item name="password">
+      <uni-forms-item name="oldPassword">
         <uni-easyinput
-          class="input-form"
-          v-model="formData.password"
+          v-model="changePsdFormData.oldPassword"
           type="password"
           placeholder="请输入密码"
-          :style="styles"
         />
       </uni-forms-item>
+      <uni-forms-item name="newPassword">
+        <uni-easyinput
+          v-model="changePsdFormData.newPassword"
+          type="password"
+          placeholder="请输入密码"
+        />
+      </uni-forms-item>
+      <button class="changeBtn" @click="handleChange">修改</button>
     </uni-forms>
   </view>
 </template>
 
-<script>
-export default {
-
+<script setup>
+import { reactive } from "vue";
+import { updatePassword } from '../../api/index.js'
+const changePsdFormData = reactive({
+  account: '',
+  oldPassword: '',
+  newPassword: ''
+})
+const handleChange = async() => {
+  const { data: res } = await updatePassword(changePsdFormData)
 }
 </script>
 
-<style>
-
+<style lang="scss">
+  .change-password {
+    .uni-easyinput {
+      background-color: #ebd8d8;
+      width: 90%;
+      margin: 0 auto;
+      // height: 80rpx;
+      border-radius: 20rpx;
+      ::v-deep .uni-easyinput__content-input {
+        height: 90rpx;
+      }
+    }
+    .changeBtn {
+      width: 90%;
+      margin: 0 auto;
+      color: white;
+      background-image: linear-gradient(90deg, #f1e1e4 -8%, #debe76 92%);
+      &::after {
+        border-color: transparent !important;
+      }
+    }
+  }
 </style>

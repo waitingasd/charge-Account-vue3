@@ -13,19 +13,18 @@
         <view>0</view> 
       </view>
     </view>
+    <view class="add" @click="handleAddRecord">
+      <img src="../../static/home/add.png" />
+    </view>
   </view>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      title: '11111111',
-    }
-  },
-  onLoad() {},
-  methods: {},
-}
+<script setup>
+  const handleAddRecord = () => {
+    uni.navigateTo({
+        url: '/pages/record/index'
+      })
+  }
 </script>
 
 <style lang="scss">
@@ -60,14 +59,29 @@ export default {
         border-radius: 16rpx;
         background-color: rgb(127, 196, 127);
         color: white;
-        width: 15%;
+        width: 18%;
         font-size: 15px;
-        line-height: 32rpx;
+        height: 50rpx;
+        line-height: 48rpx;
         text-align: center;
         &.spend {
           background-color: pink;
         }
       }
+    }
+  }
+  .add {
+    width: 100rpx;
+    height: 100rpx;
+    border-radius: 50%;
+    box-shadow: 0rpx 0rpx 15rpx 15rpx rgba(235, 164, 181, 0.4);
+    position: absolute;
+    z-index: 99999;
+    bottom: 180rpx;
+    right: 20rpx;
+    img {
+      width: 100rpx;
+      height: 100rpx;
     }
   }
 }
