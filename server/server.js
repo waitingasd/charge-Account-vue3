@@ -392,6 +392,54 @@ app.post('/updateUserInfo', function (req, res, next) {
     next(e)
   }
 })
+
+// 修改密码
+app.get('/updatePassword', function (req, res, next) {
+  account = req.query.account
+  oldPassword = req.query.oldPassword
+  newPassword = req.query.newPassword
+  const queryPhoneSql = 'select * from users where phone = ?;'
+  conn.query(queryPhoneSql, account, (err, result) => {
+    if (err) {
+      res.send({
+        code: 20000,
+        msg: '该手机号无效，请重新输入！',
+        status: 0
+      })
+      return
+    }
+    if (result.length !== 0) {
+      if (oldPassword !== result[0].password) {
+        res.send({
+          code: 20000,
+          msg: '密码不正确，请重新输入旧密码',
+          status: 0
+        })
+        return
+      } else {
+        const sql = 'update users set password = ? where phone = ?'
+        conn.query(sql, [newPassword, result[0].phone], (err, ) => {
+          if (err) {
+            console.log(err)
+            res.send({
+              code: 20000,
+              msg: '修改失败，请重试~',
+              status: 0
+            })
+            return
+          }
+          if (result) {
+            res.send({
+              code: 0,
+              msg: '修改成功!',
+              status: 0
+            })
+          }
+        })
+      }
+    }
+  })
+})
 app.listen(8888, function () {
   console.log('app is listening at http://127.0.0.1:8888/ \n 请手动打开网址')
 })
