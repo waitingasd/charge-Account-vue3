@@ -15,6 +15,9 @@
           @click="changeActiveTab(1)"
           >收入</view
         >
+        <view class="type_item">
+          {{ selectedType }}
+        </view>
       </view>
     </view>
   </view>
@@ -23,9 +26,12 @@
 <script setup>
 import { ref } from "vue";
 const goBack = () => {
-	uni.navigateBack({
-		delta:1, //返回层数，2则上上页
-	})
+  uni.navigateTo({
+    url: '/pages/index/index'
+  })
+	// uni.navigateBack({
+	// 	delta:1, //返回层数，2则上上页
+	// })
 }
 const isExpendShow = ref(false); // 是否展示支出
 const isIncomeShow = ref(false); // 是否展示收入
@@ -52,30 +58,27 @@ const changeActiveTab = (flag) => {
       height: 60rpx;
 			margin-left: 20rpx;
 			margin-top: 20rpx;
-      margin-right: 20%;
+      margin-right: 25%;
     }
     .tab-select {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      width: 35%;
+      width: 50%;
       font-size: 32rpx;
       font-weight: 700;
       cursor: pointer;
       .txt {
         position: relative;
+        margin-top: 20rpx;
 				&.active {
-          color: #eba4b5;
-          &::after {
-            content: "";
-            position: absolute;
-            width: 70rpx;
-            height: 10rpx;
-            border-radius: 30rpx;
-            background-color: #eba4b5;
-						top: 52rpx;
-						left: 0rpx;
-          }
+          background-color: #eba4b5;
+          color: white;
+          width: 108rpx;
+          height: 55rpx;
+          border-radius: 32rpx;
+          line-height: 55rpx;
+          text-align: center;
 				}
       }
     }

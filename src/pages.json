@@ -27,7 +27,7 @@
 		{
 			"path": "pages/record/index",
 			"style": {
-				"navigationStyle": "custom",//设置不显示原生导航
+				"navigationStyle": "custom"
 				// "navigationBarTitleText": "记账"
 			}
 		}
@@ -44,7 +44,7 @@
 	
 "window": {
 	// 全局导航栏设置,"default"默认显示 "custom"关闭状态
-	"navigationStyle": "default",//默认显示原生导航栏
+	"navigationStyle": "default"
 },
 	"tabBar": {
 		"color": "#FFF",
