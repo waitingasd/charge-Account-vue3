@@ -15,25 +15,35 @@
           @click="changeActiveTab(1)"
           >收入</view
         >
-        <view class="type_item">
-          {{ selectedType }}
-        </view>
       </view>
     </view>
+    <view class="type_item">
+      <!-- {{ selectedType }} -->
+    </view>
+    <view class="type_list">
+      <view class="item">房租水电</view>
+      <view class="item">餐饮日常</view>
+      <view class="item">居家日常</view>
+      <view class="item">购物消费</view>
+      <view class="item">医疗药品</view>
+      <view class="item">+</view>
+    </view>
+    <numeric-keypad />
   </view>
 </template>
 
 <script setup>
-import { ref } from "vue";
+import numericKeypad from './numericKeypad.vue'
+import { reactive, ref } from "vue";
 const goBack = () => {
-  uni.navigateTo({
+  uni.switchTab({
     url: '/pages/index/index'
   })
 	// uni.navigateBack({
 	// 	delta:1, //返回层数，2则上上页
 	// })
 }
-const isExpendShow = ref(false); // 是否展示支出
+const isExpendShow = ref(true); // 是否展示支出
 const isIncomeShow = ref(false); // 是否展示收入
 const changeActiveTab = (flag) => {
   if (flag === 0) {
@@ -50,6 +60,7 @@ const changeActiveTab = (flag) => {
 <style lang="scss">
 .page-record {
   .top-nav {
+    width: 100%;
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -64,7 +75,7 @@ const changeActiveTab = (flag) => {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      width: 50%;
+      width: 40%;
       font-size: 32rpx;
       font-weight: 700;
       cursor: pointer;
@@ -74,13 +85,42 @@ const changeActiveTab = (flag) => {
 				&.active {
           background-color: #eba4b5;
           color: white;
-          width: 108rpx;
-          height: 55rpx;
+          width: 120rpx;
+          height: 65rpx;
           border-radius: 32rpx;
-          line-height: 55rpx;
+          line-height: 65rpx;
           text-align: center;
+          font-size: 36rpx;
 				}
       }
+    }
+  }
+  .type_item {
+    width: 95%;
+    height: 300rpx;
+    margin: 20rpx auto;
+    border-radius: 30rpx;
+    background-color: rgb(247, 210, 219);
+    box-shadow: 0px 0px 10rpx 10rpx hsla(344, 30%, 88%, 0.712);
+  }
+  .type_list {
+    width: 95%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
+    .item {
+      width: 150rpx;
+      height: 50rpx;
+      line-height: 50rpx;
+      margin-top: 10rpx;
+      margin-right: 28rpx;
+      color: white;
+      text-align: center;
+      border-radius: 12rpx;
+      font-size: 32rpx;
+      background-color: #f5c896;
     }
   }
 }
