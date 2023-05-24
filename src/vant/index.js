@@ -1,14 +1,11 @@
 
-import {
-	createApp
-} from 'vue';
-import App from '../App.vue'
-import { NumberKeyboard, Button  } from 'vant';
+
+import { NumberKeyboard, Button, DateTimePicker  } from 'vant';
 // const arr = {Button}
-const app = createApp()
-app.use(Button)
-// export {
-//   NumberKeyboard,
-//   Button
-// } 
+// const app = createApp()
+// app.use(DatePicker)
+export {
+  DateTimePicker,
+  Button
+} 
 

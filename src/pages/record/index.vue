@@ -19,6 +19,8 @@
     </view>
     <view class="type_item">
       <!-- {{ selectedType }} -->
+      <view class="selected_type">房租水电</view>
+      <view class="show_result">{{ obj.showResult }}</view>
     </view>
     <view class="type_list">
       <view class="item">房租水电</view>
@@ -28,7 +30,13 @@
       <view class="item">医疗药品</view>
       <view class="item">+</view>
     </view>
-    <numeric-keypad />
+    <view>
+    </view>
+    <numeric-keypad
+      @sendResult="getResult"
+      @sendOperate="getOperate"
+      @sendSecondResult="getSecondResult"
+    />
   </view>
 </template>
 
@@ -43,6 +51,12 @@ const goBack = () => {
 	// 	delta:1, //返回层数，2则上上页
 	// })
 }
+const obj = reactive({
+  numResult: '',
+  operateType: '',
+  secondResult: '',
+  showResult: ''
+})
 const isExpendShow = ref(true); // 是否展示支出
 const isIncomeShow = ref(false); // 是否展示收入
 const changeActiveTab = (flag) => {
@@ -55,9 +69,24 @@ const changeActiveTab = (flag) => {
     isExpendShow.value = false;
   }
 };
+const getResult = (val) => {
+  obj.numResult = val
+  obj.showResult = obj.numResult + obj.operateType + obj.secondResult
+}
+const getOperate = (val) => {
+  obj.operateType = val
+  obj.showResult = obj.numResult + obj.operateType + obj.secondResult
+}
+const getSecondResult = (val) => {
+  obj.secondResult = val
+  obj.showResult = obj.numResult + obj.operateType + obj.secondResult
+}
 </script>
 
 <style lang="scss">
+page {
+  background-color: #f6f6f6;
+}
 .page-record {
   .top-nav {
     width: 100%;
@@ -102,6 +131,18 @@ const changeActiveTab = (flag) => {
     border-radius: 30rpx;
     background-color: rgb(247, 210, 219);
     box-shadow: 0px 0px 10rpx 10rpx hsla(344, 30%, 88%, 0.712);
+    .selected_type {
+      padding-top: 50rpx;
+      padding-left: 20rpx;
+      font-size: 46rpx;
+    }
+    .show_result {
+      font-weight: bold;
+      text-align: right;
+      font-size: 52rpx;
+      padding-top: 70rpx;
+      padding-right: 50rpx;
+    }
   }
   .type_list {
     width: 95%;
