@@ -1,32 +1,32 @@
 <template>
-  <view class="key-pad">
+  <view class="key-pad" @click="handleClick">
     <view class="row">
-      <view class="row-item" @click="checkNumber(1, obj.isFirst)">1</view>
-      <view class="row-item" @click="checkNumber(2, obj.isFirst)">2</view>
-      <view class="row-item" @click="checkNumber(3, obj.isFirst)">3</view>
-      <view class="row-item" @click="handleOperate('delete', obj.canClick)">
+      <view class="row-item" data-num="1">1</view>
+      <view class="row-item" data-num="2">2</view>
+      <view class="row-item" data-num="3">3</view>
+      <view class="row-item" data-num="D">
         <img class="delete-img" src="../../static/numberKeypad/delete.png" />
       </view>
     </view>
     <view class="row">
-      <view class="row-item" @click="checkNumber(4, obj.isFirst)">4</view>
-      <view class="row-item" @click="checkNumber(5, obj.isFirst)">5</view>
-      <view class="row-item" @click="checkNumber(6, obj.isFirst)">6</view>
-      <view class="row-item" @click="handleOperate('add', obj.canClick)">+</view>
+      <view class="row-item" data-num="4">4</view>
+      <view class="row-item" data-num="5">5</view>
+      <view class="row-item" data-num="6">6</view>
+      <view class="row-item" data-num="+">+</view>
     </view>
     <view class="row">
-      <view class="row-item" @click="checkNumber(7, obj.isFirst)">7</view>
-      <view class="row-item" @click="checkNumber(8, obj.isFirst)">8</view>
-      <view class="row-item" @click="checkNumber(9, obj.isFirst)">9</view>
-      <view class="row-item" @click="handleOperate('minus', obj.canClick)">-</view>
+      <view class="row-item" data-num="7">7</view>
+      <view class="row-item" data-num="8">8</view>
+      <view class="row-item" data-num="9">9</view>
+      <view class="row-item" data-num="-">-</view>
     </view>
     <view class="row">
-      <view class="row-item" @click="checkNumber('.', obj.isFirst)">.</view>
-      <view class="row-item" @click="checkNumber(0, obj.isFirst)">0</view>
-      <view class="row-item">AC</view>
+      <view class="row-item" data-num=".">.</view>
+      <view class="row-item" data-num="0">0</view>
+      <view class="row-item" data-num="AC">AC</view>
       <view class="row-item">
-        <view v-if="obj.isFinishBtnShow" class="finish">完成</view>
-        <view v-else class="finish" @click="handleOperate('finish', obj.canClick)">=</view>
+        <view v-if="obj.isFinishBtnShow" class="finish" data-num="F">完成</view>
+        <view v-else class="finish" data-num="C">=</view>
       </view>
     </view>
   </view>
@@ -35,94 +35,79 @@
 <script setup>
 import { reactive, toRefs } from "vue"
 import { add, subtraction } from '../../utils/bigNumber.js'
-  const emit = defineEmits(['sendResult', 'sendSecondResult', 'sendOperate'])
-  const props = defineProps(['showResult'])
-  const showResult = props.showResult
+  const emit = defineEmits(['sendResult', 'sendSecondResult', 'sendOperate', 'sendSumResult'])
   const obj = reactive({
     result: '',
-    secondResult: '',
     isFinishBtnShow: true,
-    operateType: '',
-    sumResult: '',
-    canClick: false,
+    addCanClick: true,
+    minusCanClick: true,
     isFirst: true // 是否是第一个数
   })
-  const checkNumber = (num, sort) => {
-    if (num !== '' || num !== null) obj.canClick = true
-    if (sort) {
-      const r = obj.result
-      obj.result = r + num
-      emit('sendResult', obj.result)
-    } else {
-      const r = obj.secondResult
-      obj.secondResult = r + num
-      emit('sendSecondResult', obj.secondResult)
+  const handleClick = (e) => {
+    const num = e.target.dataset.num
+    switch (num) {
+      case 'D':
+      handleOperate('delete')
+      break;
+      case 'AC':
+      handleOperate('clear')
+      break;
+      case 'C':
+      handleOperate('calculate')
+      break;
+      case 'F':
+      handleOperate('finish')
+      break;
+      default:
+      checkNumber(num)
     }
   }
-  const handleOperate = (type, limit) => {
-    if (!limit) return
-    if (type === 'delete') {
-      if (obj.secondResult !== '') {
-        obj.secondResult = obj.secondResult.substring(0, obj.secondResult.length -1)
-        emit('sendSecondResult', obj.secondResult)
-        return
-      } else if (obj.secondResult === '' && obj.operateType !== '') {
-        obj.operateType = ''
-        emit('sendOperate', obj.operateType)
-        return
-      } else {
-        obj.result = obj.result.substring(0, obj.result.length -1)
-        emit('sendResult', obj.result)
-        if (obj.result === '') {
-          obj.isFinishBtnShow = true
-        }
-        return
-      }
+  const checkNumber = (num) => {
+    if (obj.result === '' && num === '.') {
+      obj.result = '0'
     }
-    if (type === 'add') {
-      if (obj.operateType === '+' && obj.secondResult !== '') {
-        obj.result = add(obj.result, obj.secondResult, obj.sumResult)
-        obj.secondResult = ''
-        obj.operateType = '+'
-        emit('sendSecondResult', obj.secondResult)
-        emit('sendResult', obj.result)
-        return
-      }
-      obj.isFinishBtnShow = false
-      obj.result = add(obj.result, obj.secondResult, obj.sumResult)
-      obj.operateType = '+'
-      obj.isFirst = false
-      emit('sendOperate', obj.operateType)
+    if (obj.result === '0' && num !== '.') {
+      obj.result = Number(obj.result + num)
+      emit('sendResult', obj.result)
       return
     }
-    if (type === 'minus') {
-      if (obj.operateType === '-' && obj.secondResult !== '') {
-        obj.result = subtraction(obj.result, obj.secondResult, obj.sumResult)
-        obj.secondResult = ''
-        obj.operateType = '-'
-        emit('sendSecondResult', obj.secondResult)
-        emit('sendResult', obj.result)
-        return
+    if (obj.result === '' && (num === '+' || num === '-')) return
+    if (num === '+' || num === '-') obj.isFinishBtnShow = false
+    const lastStr = String(obj.result).substr(-1)
+    if ((num === '+' && lastStr === '+' )|| (num === '-' && lastStr === '-')) {
+      return
+    }
+    if ((num === '+' && lastStr === '-') || (num === '-' && lastStr === '+')) {
+      obj.result = String(obj.result).substring(0, String(obj.result).length -1) + num
+    } else {
+      obj.result = obj.result + num
+    }
+    emit('sendResult', obj.result)
+  }
+  const handleOperate = (type) => {
+    if (type === 'delete') {
+      obj.result = String(obj.result).substring(0, String(obj.result).length -1)
+      emit('sendResult', obj.result)
+      if (obj.result === '') {
+        obj.isFinishBtnShow = true
       }
-      obj.isFinishBtnShow = false
-      obj.result = subtraction(obj.result, obj.secondResult, obj.sumResult)
-      obj.operateType = '-'
-      obj.isFirst = false
-      emit('sendOperate', obj.operateType)
+      return
+    }
+    if (type === 'calculate') {
+      obj.isFinishBtnShow = true
+      obj.result = eval(obj.result)
+      emit('sendResult', obj.result)
+      return
+    }
+    if (type === 'clear') {
+      obj.result = ''
+      emit('sendResult', obj.result)
       return
     }
     if (type === 'finish') {
-      obj.isFinishBtnShow = false
-      if (obj.result !== '' && obj.secondResult === '') {
-        obj.result = obj.result.toString().replace(/\+/g, "")
-        obj.result = obj.result.toString().replace(/\-/g, "")
-        emit('sendResult', obj.result)
-        return
-      } else if (obj.result !== '' && obj.secondResult !== '' && obj.operateType === '+') {
-        obj.sumResult = add(obj.result, obj.secondResult, obj.sumResult)
-        console.log(obj.sumResult, 'obj.sumResult')
-        emit('sendResult', obj.result)
-      }
+      uni.switchTab({
+        url: '/pages/index/index'
+      })
       return
     }
   }

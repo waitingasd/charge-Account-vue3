@@ -36,6 +36,7 @@
       @sendResult="getResult"
       @sendOperate="getOperate"
       @sendSecondResult="getSecondResult"
+      @sendSumResult="getSumResult"
     />
   </view>
 </template>
@@ -80,6 +81,11 @@ const getOperate = (val) => {
 const getSecondResult = (val) => {
   obj.secondResult = val
   obj.showResult = obj.numResult + obj.operateType + obj.secondResult
+}
+const getSumResult = (val) => {
+  if (val !== '') {
+    obj.showResult = val
+  }
 }
 </script>
 
