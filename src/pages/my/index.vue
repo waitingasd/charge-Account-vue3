@@ -98,7 +98,7 @@ export default {
     });
     const isShowUserInfo = ref(false);
     const noRegist = ref(false); // 是否没注册
-    // if (store.getters.charge_token !== "") {
+    if (store.getters.charge_token !== "") {
       getUserInfo().then((res) => {
         swe.res = computed(() => {
           return res?.data?.data;
@@ -110,7 +110,7 @@ export default {
           }
         }
       });
-    // }
+    }
     const formData = ref({
       name: "",
       password: "",

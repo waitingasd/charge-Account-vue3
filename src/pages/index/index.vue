@@ -28,6 +28,9 @@
 </script>
 
 <style lang="scss">
+page {
+  background-color: #f6f6f6;
+}
 .content {
   .final-detail {
     width: 90%;

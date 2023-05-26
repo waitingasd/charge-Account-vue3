@@ -91,7 +91,7 @@ const getSumResult = (val) => {
 
 <style lang="scss">
 page {
-  background-color: #f6f6f6;
+  background-image: linear-gradient(90deg, #eae0fc, #fdeded);
 }
 .page-record {
   .top-nav {
@@ -135,8 +135,8 @@ page {
     height: 300rpx;
     margin: 20rpx auto;
     border-radius: 30rpx;
-    background-color: rgb(247, 210, 219);
-    box-shadow: 0px 0px 10rpx 10rpx hsla(344, 30%, 88%, 0.712);
+    background-color: white;
+    box-shadow: 0px 0px 10rpx 10rpx hsla(330, 2%, 84%, 0.712);
     .selected_type {
       padding-top: 50rpx;
       padding-left: 20rpx;

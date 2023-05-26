@@ -1,5 +1,19 @@
 <template>
-  <view class="key-pad" @click="handleClick">
+  <view class="key-pad" @click.stop="handleClick">
+    <view class="reload">
+        <uni-datetime-picker
+          type="datetime"
+          v-model="obj.datetimesingle"
+          style="background-color: #f0f0f0;"
+        />
+      <uni-easyinput
+        type="text"
+        v-model="obj.remark"
+        placeholder="点击输入备注..."
+        :clearable="false"
+        style="background-color: #f0f0f0;"
+      />
+    </view>
     <view class="row">
       <view class="row-item" data-num="1">1</view>
       <view class="row-item" data-num="2">2</view>
@@ -41,10 +55,13 @@ import { add, subtraction } from '../../utils/bigNumber.js'
     isFinishBtnShow: true,
     addCanClick: true,
     minusCanClick: true,
-    isFirst: true // 是否是第一个数
+    isFirst: true, // 是否是第一个数
+    datetimesingle: '',
+    remark: ''
   })
   const handleClick = (e) => {
     const num = e.target.dataset.num
+    if (!num) return
     switch (num) {
       case 'D':
       handleOperate('delete')
@@ -124,6 +141,20 @@ import { add, subtraction } from '../../utils/bigNumber.js'
     background-color: #f0f0f0;
     // box-shadow: 0px 0px 10rpx 10rpx #eec6d0;
     border-radius: 10rpx;
+    .reload {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      ::v-deep .uni-date-x {
+        background-color: #f0f0f0;
+      }
+      .uni-easyinput__placeholder-class {
+        font-size: 28rpx;
+      }
+      ::v-deep .uni-easyinput__content-input {
+        height: 60rpx;
+      }
+    }
     .row {
       display: flex;
       justify-content: space-around;
@@ -134,8 +165,10 @@ import { add, subtraction } from '../../utils/bigNumber.js'
         width: 25%;
         height: 130rpx;
         line-height: 130rpx;
+        font-size: 40rpx;
+        // color: white;
         margin-right: 10rpx;
-        background-color: #f7d2db;
+        background-color: white;
         border-radius: 10rpx;
         .delete-img {
           width: 60rpx;
